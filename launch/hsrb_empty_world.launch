@@ -36,6 +36,7 @@ POSSIBILITY OF SUCH DAMAGE.
     <arg name="gazebo_visualization" default="false" />
     <arg name="fast_physics" default="false" />
     <arg name="use_laser_odom" default="false" />
+    <arg name="use_oss_stacks" default="false" />
     <arg name="robot_pos"  default="-x 0 -y 0 -z 0 -Y 0" />
     <arg name="namespace" default="hsrb" />
     <arg name="personal_name" default="" />
@@ -60,6 +61,7 @@ POSSIBILITY OF SUCH DAMAGE.
         <arg name="robot_pos" value="$(arg robot_pos)" />
         <arg name="gazebo_visualization" value="$(arg gazebo_visualization)" />
         <arg name="use_laser_odom" value="$(arg use_laser_odom)" />
+        <arg name="use_oss_stacks" value="$(arg use_oss_stacks)" />
         <arg name="fast_physics" value="$(arg fast_physics)" />
         <arg name="namespace" value="$(arg namespace)" />
         <arg name="personal_name" value="$(arg personal_name)" />
