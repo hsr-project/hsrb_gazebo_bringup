@@ -1,23 +1,23 @@
 Overview
 +++++++++++++++++++++
 
-- HSR-Bのgazebo用設定ファイル、起動ファイルを管理する。
+- Manages the HSR-B gazebo configuration files and launch files.
 
-管理ファイル
+Management files
 ++++++++++++
 
 launch
 ^^^^^^
 
-シミュレータ起動用ファイルを管理
+Manages the simulator launch files.
 
-* コントローラ+センサ+何もない環境の構成でシミュレータを起動
+* Start the simulator using controllers, sensors, and an empty environment.
 
 .. code-block:: bash
 
                 $ roslaunch hsrb_gazebo_bringup hsrb_empty_world.launch
 
-* ゲイン調整用コントローラ+センサ+何もない環境の構成でシミュレータを起動
+* Start the simulator using gain adjustment controllers, sensors, and an empty environment.
 
 .. code-block:: bash
 
@@ -26,7 +26,7 @@ launch
 params
 ^^^^^^
 
-コントローラ・センサ用設定ファイルやPIDゲイン設定ファイルを管理する。
+Manages the controller and sensor configuration files as well as the PID gain configuration files.
 
 LICENSE
 +++++++++
