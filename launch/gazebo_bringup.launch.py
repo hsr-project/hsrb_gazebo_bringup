@@ -1,4 +1,7 @@
-# Copyright (c) 2015 TOYOTA MOTOR CORPORATION
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
+# Copyright (c) 2022 TOYOTA MOTOR CORPORATION
 # All rights reserved.
 
 # Redistribution and use in source and binary forms, with or without
@@ -24,34 +27,18 @@
 # CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
-arm_lift_joint_position_controller:
-  type: "position_controllers/JointPositionController"
-  joint: arm_lift_joint
-arm_flex_joint_position_controller:
-  type: "position_controllers/JointPositionController"
-  joint: arm_flex_joint
-arm_roll_joint_position_controller:
-  type: "position_controllers/JointPositionController"
-  joint: arm_roll_joint
-wrist_flex_joint_position_controller:
-  type: "position_controllers/JointPositionController"
-  joint: wrist_flex_joint
-wrist_roll_joint_position_controller:
-  type: "position_controllers/JointPositionController"
-  joint: wrist_roll_joint
-head_pan_joint_position_controller:
-  type: "position_controllers/JointPositionController"
-  joint: head_pan_joint
-head_tilt_joint_position_controller:
-  type: "position_controllers/JointPositionController"
-  joint: head_tilt_joint
 
-base_roll_joint_position_controller:
-  type: "position_controllers/JointPositionController"
-  joint: base_roll_joint
-base_l_drive_wheel_joint_velocity_controller:
-  type: "velocity_controllers/JointVelocityController"
-  joint: base_l_drive_wheel_joint
-base_r_drive_wheel_joint_velocity_controller:
-  type: "velocity_controllers/JointVelocityController"
-  joint: base_r_drive_wheel_joint
+import os
+
+from ament_index_python.packages import get_package_share_directory
+from launch import LaunchDescription
+
+from launch.actions import IncludeLaunchDescription
+from launch.launch_description_sources import PythonLaunchDescriptionSource
+
+
+def generate_launch_description():
+    gazebo = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource([os.path.join(
+            get_package_share_directory('gazebo_ros'), 'launch'), '/gazebo.launch.py']))
+    return LaunchDescription([gazebo])

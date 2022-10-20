@@ -1,4 +1,7 @@
-# Copyright (c) 2017 TOYOTA MOTOR CORPORATION
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+# Copyright (c) 2022 TOYOTA MOTOR CORPORATION
 # All rights reserved.
 
 # Redistribution and use in source and binary forms, with or without
@@ -25,27 +28,14 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
-# PID parameters when gazebo max_step_size is 0.003
-gazebo_ros_control:
-  pid_gains:
-    base_roll_joint: {p: 450, i: 100.0, d: 50.0, i_clamp: 200.0}
-    base_l_drive_wheel_joint: {p: 16, i: 0.2, d: 0.00, i_clamp_min: -3.0, i_clamp_max: 3.0}
-    base_r_drive_wheel_joint: {p: 16, i: 0.2, d: 0.00, i_clamp_min: -3.0, i_clamp_max: 3.0}
-    arm_lift_joint: {p: 450.0, d: 50, i: 100, i_clamp: 200.0}
-    arm_flex_joint: {p: 1000.0, d: 10, i: 5, i_clamp: 200.0}
-    arm_roll_joint: {p: 500.0, d: 1, i: 5, i_clamp: 200.0}
-    wrist_flex_joint: {p: 450.0, d: 0, i: 0, i_clamp: 200.0}
-    wrist_roll_joint: {p: 450.0, d: 0, i: 0, i_clamp: 200.0}
-    head_pan_joint: {p: 450.0, d: 5, i: 0, i_clamp: 200.0}
-    head_tilt_joint: {p: 450.0, d: 5, i: 0, i_clamp: 200.0}
-gripper_controller:
-  pid_gains:
-    hand_l_proximal_joint: {p: 3.0, i: 0.0, d: 0.01, i_clamp: 0.0}
-    hand_r_proximal_joint: {p: 3.0, i: 0.0, d: 0.01, i_clamp: 0.0}
-    hand_l_distal_joint: {p: 10.0, i: 0.0, d: 0.1, i_clamp: 0.0}
-    hand_r_distal_joint: {p: 10.0, i: 0.0, d: 0.1, i_clamp: 0.0}
-    hand_l_spring_proximal_joint: {p: 5.0, i: 0.0, d: 0.0, i_clamp: 0.0}
-    hand_r_spring_proximal_joint: {p: 5.0, i: 0.0, d: 0.0, i_clamp: 0.0}
-mimic_controller:
-  pid_gains:
-    torso_lift_joint: {p: 5000.0, i: 5.0, d: 0.02, i_clamp: 200.0}
+from launch import LaunchDescription
+
+from launch.actions import IncludeLaunchDescription
+from launch.launch_description_sources import PythonLaunchDescriptionSource
+from launch.substitutions import ThisLaunchFileDir
+
+
+def generate_launch_description():
+    return LaunchDescription([
+        IncludeLaunchDescription(
+            PythonLaunchDescriptionSource([ThisLaunchFileDir(), '/spawn_hsr.py']))])

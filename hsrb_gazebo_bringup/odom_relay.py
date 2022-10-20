@@ -1,4 +1,7 @@
-# Copyright (c) 2014 TOYOTA MOTOR CORPORATION
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
+# Copyright (c) 2022 TOYOTA MOTOR CORPORATION
 # All rights reserved.
 
 # Redistribution and use in source and binary forms, with or without
@@ -24,26 +27,30 @@
 # CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
-gazebo_ros_control:
-  pid_gains:
-    base_roll_joint: {p: 900, i: 200.0, d: 100.0, i_clamp: 200.0}
-    base_l_drive_wheel_joint: {p: 35, i: 0.5, d: 0.00, i_clamp_min: -3.0, i_clamp_max: 3.0}
-    base_r_drive_wheel_joint: {p: 35, i: 0.5, d: 0.00, i_clamp_min: -3.0, i_clamp_max: 3.0}
-    arm_lift_joint: {p: 900.0, d: 100, i: 200, i_clamp: 200.0}
-    arm_flex_joint: {p: 2000.0, d: 20, i: 10, i_clamp: 200.0}
-    arm_roll_joint: {p: 1000.0, d: 1, i: 10, i_clamp: 200.0}
-    wrist_flex_joint: {p: 900.0, d: 0, i: 0, i_clamp: 200.0}
-    wrist_roll_joint: {p: 900.0, d: 0, i: 0, i_clamp: 200.0}
-    head_pan_joint: {p: 1200.0, d: 10, i: 0, i_clamp: 200.0}
-    head_tilt_joint: {p: 1200.0, d: 10, i: 0, i_clamp: 200.0}
-gripper_controller:
-  pid_gains:
-    hand_l_proximal_joint: {p: 50.0, i: 0.0, d: 0.1, i_clamp: 0.0}
-    hand_r_proximal_joint: {p: 50.0, i: 0.0, d: 0.1, i_clamp: 0.0}
-    hand_l_distal_joint: {p: 20.0, i: 0.0, d: 0.1, i_clamp: 0.0}
-    hand_r_distal_joint: {p: 20.0, i: 0.0, d: 0.1, i_clamp: 0.0}
-    hand_l_spring_proximal_joint: {p: 10.0, i: 0.0, d: 0.0, i_clamp: 0.0}
-    hand_r_spring_proximal_joint: {p: 10.0, i: 0.0, d: 0.0, i_clamp: 0.0}
-mimic_controller:
-  pid_gains:
-    torso_lift_joint: {p: 5000.0, i: 5.0, d: 0.02, i_clamp: 200.0}
+
+from nav_msgs.msg import Odometry
+import rclpy
+from rclpy.node import Node
+
+
+class Relay(Node):
+
+    def __init__(self):
+        super().__init__('odom_relay')
+        self._publisher = self.create_publisher(Odometry, '~/output_odom', 1)
+        self._subscription = self.create_subscription(Odometry, '~/input_odom', self._callback, 1)
+
+    def _callback(self, msg):
+        self._publisher.publish(msg)
+
+
+def main():
+    rclpy.init()
+    relay = Relay()
+    rclpy.spin(relay)
+    relay.destroy_node()
+    rclpy.shutdown()
+
+
+if __name__ == '__main__':
+    main()

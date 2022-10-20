@@ -1,7 +1,7 @@
 Overview
 +++++++++++++++++++++
 
-- Manages the HSR-B gazebo configuration files and launch files.
+- Manages the HSR gazebo configuration files and launch files.
 
 Management files
 ++++++++++++
@@ -15,18 +15,7 @@ Manages the simulator launch files.
 
 .. code-block:: bash
 
-                $ roslaunch hsrb_gazebo_bringup hsrb_empty_world.launch
-
-* Start the simulator using gain adjustment controllers, sensors, and an empty environment.
-
-.. code-block:: bash
-
-                $ roslaunch hsrb_gazebo_bringup hsrb_gain_tuning.launch
-
-params
-^^^^^^
-
-Manages the controller and sensor configuration files as well as the PID gain configuration files.
+                $ ros2 launch hsrb_gazebo_bringup spawn_hsrb.launch.py
 
 LICENSE
 +++++++++

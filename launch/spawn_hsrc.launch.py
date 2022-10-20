@@ -1,4 +1,7 @@
-# Copyright (c) 2016 TOYOTA MOTOR CORPORATION
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+# Copyright (c) 2022 TOYOTA MOTOR CORPORATION
 # All rights reserved.
 
 # Redistribution and use in source and binary forms, with or without
@@ -24,8 +27,17 @@
 # CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
-laser_scan_matcher_node:
-  sigma: 0.01
-  use_vel: false
-  outliers_maxPerc: 0.9
-  outliers_adaptive_order: 0.95
+
+from launch import LaunchDescription
+
+from launch.actions import IncludeLaunchDescription
+from launch.launch_description_sources import PythonLaunchDescriptionSource
+from launch.substitutions import ThisLaunchFileDir
+
+
+def generate_launch_description():
+    return LaunchDescription([
+        IncludeLaunchDescription(
+            PythonLaunchDescriptionSource([ThisLaunchFileDir(), '/spawn_hsr.py']),
+            launch_arguments={'description_package': 'hsrb_description',
+                              'description_file': 'hsrc1s.urdf.xacro'}.items())])
