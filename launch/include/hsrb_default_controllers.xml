@@ -60,7 +60,7 @@ POSSIBILITY OF SUCH DAMAGE.
                       arm_trajectory_controller
                       head_trajectory_controller
                       offset_diff_drive_controller
-                      omni_trajectory_controller
+                      omni_base_controller
                       --timeout 60" />
             <node name="controller_spawner_stopped"
                 pkg="controller_manager"
